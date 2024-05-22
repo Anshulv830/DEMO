@@ -1,0 +1,98 @@
+01. CREATE TABLE----------------------------------------------
+
+************-- Create SCHOOL table************
+CREATE TABLE SCHOOL (
+    school_id INT AUTO_INCREMENT PRIMARY KEY,
+    school_name VARCHAR(100) NOT NULL,
+    address VARCHAR(255) NOT NULL
+);
+
+-- Create STUDENT table
+CREATE TABLE STUDENT (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_name VARCHAR(100) NOT NULL,
+    age INT NOT NULL,
+    school_id INT,
+    FOREIGN KEY (school_id) REFERENCES SCHOOL(school_id)
+);
+
+-- Create COURSE table
+CREATE TABLE COURSE (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(100) NOT NULL,
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES STUDENT(student_id)
+);
+
+
+02. INSERT DATA --------------------------------------------
+
+-- Insert sample data into SCHOOL table
+INSERT INTO SCHOOL (school_name, address)
+VALUES ('All Angles Sch', '464001 M .P '),
+       ('Central High  ', '45101 U . P');
+
+-- Insert sample data into STUDENT table
+INSERT INTO STUDENT (student_name, age, school_id)
+VALUES ('Prerna', 23 , 057),
+       ('Ayush', 22, 014),
+       ('Anshul ', 24, 064);
+
+-- Insert sample data into COURSE table
+INSERT INTO COURSE (course_name, student_id)
+VALUES ('Mathematics', 1),
+       ('Science', 1),
+       ('History', 2),
+       ('Mathematics', 3),
+       ('Science', 3);
+
+03. Query the Tables--------------------------------------------
+
+**Show all schools:
+--SELECT * FROM SCHOOL;
+
+**Show all students with their respective schools:
+--SELECT s.student_id, s.student_name, s.age, sc.school_name
+FROM STUDENT s
+JOIN SCHOOL sc ON s.school_id = sc.school_id;
+
+**Show all courses along with the student names enrolled in each course:
+--SELECT c.course_id, c.course_name, s.student_name
+FROM COURSE c
+JOIN STUDENT s ON c.student_id = s.student_id;
+
+-------------------------------------------------------------------------------------------------------------
+
+
++-----------+----------------+------------------+
+| school_id | school_name    | address          |
++-----------+----------------+------------------+
+|         1 | All Angles Sch | 464001  M .P     |
+|         2 | Central High   | 45101   U .P     |
++-----------+----------------+------------------+
+
+--------------------------------------------------------------------------------------------------------------
+
++------------+--------------+-----+-----------------+
+| student_id | student_name | age | school_name     |
++------------+--------------+-----+-----------------+
+|          1 | Prerna       |  23 | All Angles Sch  |
+|          2 | Ayush        |  22 | Central High    |
+|          3 | Anshul       |  24 | All Angles Sch  |
++------------+--------------+-----+-----------------+  
+
+----------------------------------------------------------------------------------------------------------------
+
++-----------+-------------+--------------+
+| course_id | course_name | student_name |
++-----------+-------------+--------------+
+|         1 | Mathematics | Ayush        |
+|         2 | Science     | Prerna       |
+|         3 | History     | Ayush        |
+|         4 | Mathematics | Ayush        |
+|         5 | Science     |  Anshul      |
++-----------+-------------+--------------+
+
+
+
+
